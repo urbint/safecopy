@@ -2,17 +2,20 @@
 module Data.SafeCopy.Store.Encode where
 
 import Data.ByteString (ByteString)
-import Data.Monoid
 import Data.Store
 import Data.Store.Core
 
 data Encode a = Encode {-# UNPACK #-} !Int !(Poke ()) !a
 
+instance Semigroup a => Semigroup (Encode a) where
+  (Encode len1 f1 a1) <> (Encode len2 f2 a2) = Encode (len1 + len2) (f1 *> f2) (a1 <> a2)
+  {-# INLINE (<>) #-}
+
 instance Monoid a => Monoid (Encode a) where
   mempty = Encode 0 (Poke $ \_ offset -> pure (offset, ())) mempty
   {-# INLINE mempty #-}
 
-  (Encode len1 f1 a1) `mappend` (Encode len2 f2 a2) = Encode (len1 + len2) (f1 *> f2) (a1 <> a2)
+  (Encode len1 f1 a1) `mappend` (Encode len2 f2 a2) = Encode (len1 + len2) (f1 *> f2) (a1 `mappend` a2)
   {-# INLINE mappend #-}
 
 instance Functor Encode where

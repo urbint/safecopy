@@ -1,3 +1,4 @@
+{-# LANGUAGE DeriveFunctor #-}
 {-# LANGUAGE GADTs, TypeFamilies, FlexibleContexts #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -269,6 +270,7 @@ instance Num (Version a) where
 --   This is where 'Contained' enters the picture. It allows you to put
 --   values in to a container but not to take them out again.
 newtype Contained a = Contained {unsafeUnPack :: a}
+  deriving (Functor)
 
 -- | Place a value in an unbreakable container.
 contain :: a -> Contained a

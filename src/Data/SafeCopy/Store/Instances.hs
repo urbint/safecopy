@@ -1,5 +1,6 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE DeriveDataTypeable, FlexibleContexts, UndecidableInstances, TypeFamilies #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 module Data.SafeCopy.Store.Instances where
 
@@ -74,7 +75,7 @@ instance SafeCopy a => SafeCopy [a] where
 
 instance SafeCopy a => SafeCopy (NonEmpty.NonEmpty a) where
     getCopy = contain $ fmap NonEmpty.fromList safeGet
-    putCopy = contain . safePut . NonEmpty.toList
+    putCopy xs = fmap (fmap NonEmpty.fromList) $ contain (safePut (NonEmpty.toList xs))
     errorTypeName = typeName1
 
 instance SafeCopy a => SafeCopy (Maybe a) where

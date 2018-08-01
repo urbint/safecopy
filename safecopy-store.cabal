@@ -43,8 +43,8 @@ Library
   if !impl(ghc > 8.0)
     Build-Depends:     semigroups >= 0.18 && < 0.19
 
-n  -- Modules not exported by this package.
-  Other-modules:       Data.SafeCopy.Store.Instances, Data.SafeCopy.Store.SafeCopy,
+  -- Modules not exported by this package.
+  other-modules:       Data.SafeCopy.Store.Instances, Data.SafeCopy.Store.SafeCopy,
                        Data.SafeCopy.Store.Derive, Data.SafeCopy.Store.Encode
 
   -- Extra tools (e.g. alex, hsc2hs, ...) needed to build the source.
