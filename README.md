@@ -1,4 +1,14 @@
-SafeCopy-store
+SafeCopy-store (fork)
+========
+
+Fork of SafeCopy that substitutes
+[store](http://hackage.haskell.org/package/store) in for
+[cereal](http://hackage.haskell.org/package/cereal). Both libraries serialize
+data. `Store` is faster than `Cereal` at the cost of weaker portability.
+
+See below for the original SafeCopy README.
+
+SafeCopy
 ==============
 
 [![Build Status](https://travis-ci.org/NCrashed/safecopy.svg?branch=master)](https://travis-ci.org/NCrashed/safecopy)
